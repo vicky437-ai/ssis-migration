@@ -1,0 +1,335 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/25/2026 3:15:00 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:DTSID="{AD3A1066-B9DD-4F21-B57A-AA0C758FA42E}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="03_LoadFactInternetSales"
+  DTS:PackageType="5"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{F3EA286D-EE67-4D93-8A8F-3FEA45C1CDC0}">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AdventureWorksDW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{4677582E-AE30-410D-A794-92C99FB1C94F}"
+      DTS:ObjectName="AdventureWorksDW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=localhost;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load FactInternetSales"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{5524006C-F613-4CE9-B189-8A6F06E039C5}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:ObjectName="Load FactInternetSales">
+      <DTS:ObjectData>
+        <pipeline version="1">
+          <components>
+            <component
+              refId="Package\Load FactInternetSales\OLE DB Source SalesOnline"
+              componentClassID="Microsoft.OLEDBSource"
+              name="OLE DB Source SalesOnline"
+              version="7">
+              <properties>
+                <property name="OpenRowset">[stg].[SalesOnline]</property>
+                <property name="AccessMode">0</property>
+              </properties>
+              <connections>
+                <connection refId="Package\Load FactInternetSales\OLE DB Source SalesOnline.Connection"
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorksDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorksDW]"
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output refId="Package\Load FactInternetSales\OLE DB Source SalesOnline.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesOnline.Outputs[OLE DB Source Output].Columns[ProductAlternateKey]" dataType="wstr" length="25" lineageId="301" name="ProductAlternateKey" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesOnline.Outputs[OLE DB Source Output].Columns[CustomerAlternateKey]" dataType="wstr" length="15" lineageId="302" name="CustomerAlternateKey" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesOnline.Outputs[OLE DB Source Output].Columns[SalesTerritoryKey]" dataType="i4" lineageId="303" name="SalesTerritoryKey" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesOnline.Outputs[OLE DB Source Output].Columns[SalesOrderNumber]" dataType="wstr" length="20" lineageId="304" name="SalesOrderNumber" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesOnline.Outputs[OLE DB Source Output].Columns[SalesOrderLineNumber]" dataType="ui1" lineageId="305" name="SalesOrderLineNumber" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesOnline.Outputs[OLE DB Source Output].Columns[OrderQuantity]" dataType="i2" lineageId="306" name="OrderQuantity" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesOnline.Outputs[OLE DB Source Output].Columns[UnitPrice]" dataType="cy" lineageId="307" name="UnitPrice" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesOnline.Outputs[OLE DB Source Output].Columns[ProductStandardCost]" dataType="cy" lineageId="308" name="ProductStandardCost" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesOnline.Outputs[OLE DB Source Output].Columns[SalesAmount]" dataType="cy" lineageId="309" name="SalesAmount" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesOnline.Outputs[OLE DB Source Output].Columns[TaxAmt]" dataType="cy" lineageId="310" name="TaxAmt" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesOnline.Outputs[OLE DB Source Output].Columns[OrderDate]" dataType="dbTimeStamp" lineageId="311" name="OrderDate" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output refId="Package\Load FactInternetSales\OLE DB Source SalesOnline.Outputs[OLE DB Source Error Output]"
+                  name="OLE DB Source Error Output" isErrorOut="true">
+                  <outputColumns />
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load FactInternetSales\OLE DB Source SalesReseller"
+              componentClassID="Microsoft.OLEDBSource"
+              name="OLE DB Source SalesReseller"
+              version="7">
+              <properties>
+                <property name="OpenRowset">[stg].[SalesReseller]</property>
+                <property name="AccessMode">0</property>
+              </properties>
+              <connections>
+                <connection refId="Package\Load FactInternetSales\OLE DB Source SalesReseller.Connection"
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorksDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorksDW]"
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output refId="Package\Load FactInternetSales\OLE DB Source SalesReseller.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesReseller.Outputs[OLE DB Source Output].Columns[ProductAlternateKey]" dataType="wstr" length="25" lineageId="321" name="ProductAlternateKey" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesReseller.Outputs[OLE DB Source Output].Columns[CustomerAlternateKey]" dataType="wstr" length="15" lineageId="322" name="CustomerAlternateKey" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesReseller.Outputs[OLE DB Source Output].Columns[SalesTerritoryKey]" dataType="i4" lineageId="323" name="SalesTerritoryKey" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesReseller.Outputs[OLE DB Source Output].Columns[SalesOrderNumber]" dataType="wstr" length="20" lineageId="324" name="SalesOrderNumber" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesReseller.Outputs[OLE DB Source Output].Columns[SalesOrderLineNumber]" dataType="ui1" lineageId="325" name="SalesOrderLineNumber" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesReseller.Outputs[OLE DB Source Output].Columns[OrderQuantity]" dataType="i2" lineageId="326" name="OrderQuantity" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesReseller.Outputs[OLE DB Source Output].Columns[UnitPrice]" dataType="cy" lineageId="327" name="UnitPrice" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesReseller.Outputs[OLE DB Source Output].Columns[ProductStandardCost]" dataType="cy" lineageId="328" name="ProductStandardCost" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesReseller.Outputs[OLE DB Source Output].Columns[SalesAmount]" dataType="cy" lineageId="329" name="SalesAmount" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesReseller.Outputs[OLE DB Source Output].Columns[TaxAmt]" dataType="cy" lineageId="330" name="TaxAmt" />
+                    <outputColumn refId="Package\Load FactInternetSales\OLE DB Source SalesReseller.Outputs[OLE DB Source Output].Columns[OrderDate]" dataType="dbTimeStamp" lineageId="331" name="OrderDate" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output refId="Package\Load FactInternetSales\OLE DB Source SalesReseller.Outputs[OLE DB Source Error Output]"
+                  name="OLE DB Source Error Output" isErrorOut="true">
+                  <outputColumns />
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load FactInternetSales\Union All Sales"
+              componentClassID="Microsoft.UnionAll"
+              name="Union All Sales"
+              version="1">
+              <inputs>
+                <input refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 1]"
+                  name="Union All Input 1">
+                  <inputColumns>
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 1].Columns[ProductAlternateKey]" lineageId="301" outputColumnLineageId="341" name="ProductAlternateKey" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 1].Columns[CustomerAlternateKey]" lineageId="302" outputColumnLineageId="342" name="CustomerAlternateKey" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 1].Columns[SalesTerritoryKey]" lineageId="303" outputColumnLineageId="343" name="SalesTerritoryKey" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 1].Columns[SalesOrderNumber]" lineageId="304" outputColumnLineageId="344" name="SalesOrderNumber" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 1].Columns[SalesOrderLineNumber]" lineageId="305" outputColumnLineageId="345" name="SalesOrderLineNumber" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 1].Columns[OrderQuantity]" lineageId="306" outputColumnLineageId="346" name="OrderQuantity" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 1].Columns[UnitPrice]" lineageId="307" outputColumnLineageId="347" name="UnitPrice" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 1].Columns[ProductStandardCost]" lineageId="308" outputColumnLineageId="348" name="ProductStandardCost" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 1].Columns[SalesAmount]" lineageId="309" outputColumnLineageId="349" name="SalesAmount" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 1].Columns[TaxAmt]" lineageId="310" outputColumnLineageId="350" name="TaxAmt" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 1].Columns[OrderDate]" lineageId="311" outputColumnLineageId="351" name="OrderDate" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 2]"
+                  name="Union All Input 2">
+                  <inputColumns>
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 2].Columns[ProductAlternateKey]" lineageId="321" outputColumnLineageId="341" name="ProductAlternateKey" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 2].Columns[CustomerAlternateKey]" lineageId="322" outputColumnLineageId="342" name="CustomerAlternateKey" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 2].Columns[SalesTerritoryKey]" lineageId="323" outputColumnLineageId="343" name="SalesTerritoryKey" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 2].Columns[SalesOrderNumber]" lineageId="324" outputColumnLineageId="344" name="SalesOrderNumber" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 2].Columns[SalesOrderLineNumber]" lineageId="325" outputColumnLineageId="345" name="SalesOrderLineNumber" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 2].Columns[OrderQuantity]" lineageId="326" outputColumnLineageId="346" name="OrderQuantity" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 2].Columns[UnitPrice]" lineageId="327" outputColumnLineageId="347" name="UnitPrice" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 2].Columns[ProductStandardCost]" lineageId="328" outputColumnLineageId="348" name="ProductStandardCost" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 2].Columns[SalesAmount]" lineageId="329" outputColumnLineageId="349" name="SalesAmount" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 2].Columns[TaxAmt]" lineageId="330" outputColumnLineageId="350" name="TaxAmt" />
+                    <inputColumn refId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 2].Columns[OrderDate]" lineageId="331" outputColumnLineageId="351" name="OrderDate" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output refId="Package\Load FactInternetSales\Union All Sales.Outputs[Union All Output 1]"
+                  name="Union All Output 1">
+                  <outputColumns>
+                    <outputColumn refId="Package\Load FactInternetSales\Union All Sales.Outputs[Union All Output 1].Columns[ProductAlternateKey]" dataType="wstr" length="25" lineageId="341" name="ProductAlternateKey" />
+                    <outputColumn refId="Package\Load FactInternetSales\Union All Sales.Outputs[Union All Output 1].Columns[CustomerAlternateKey]" dataType="wstr" length="15" lineageId="342" name="CustomerAlternateKey" />
+                    <outputColumn refId="Package\Load FactInternetSales\Union All Sales.Outputs[Union All Output 1].Columns[SalesTerritoryKey]" dataType="i4" lineageId="343" name="SalesTerritoryKey" />
+                    <outputColumn refId="Package\Load FactInternetSales\Union All Sales.Outputs[Union All Output 1].Columns[SalesOrderNumber]" dataType="wstr" length="20" lineageId="344" name="SalesOrderNumber" />
+                    <outputColumn refId="Package\Load FactInternetSales\Union All Sales.Outputs[Union All Output 1].Columns[SalesOrderLineNumber]" dataType="ui1" lineageId="345" name="SalesOrderLineNumber" />
+                    <outputColumn refId="Package\Load FactInternetSales\Union All Sales.Outputs[Union All Output 1].Columns[OrderQuantity]" dataType="i2" lineageId="346" name="OrderQuantity" />
+                    <outputColumn refId="Package\Load FactInternetSales\Union All Sales.Outputs[Union All Output 1].Columns[UnitPrice]" dataType="cy" lineageId="347" name="UnitPrice" />
+                    <outputColumn refId="Package\Load FactInternetSales\Union All Sales.Outputs[Union All Output 1].Columns[ProductStandardCost]" dataType="cy" lineageId="348" name="ProductStandardCost" />
+                    <outputColumn refId="Package\Load FactInternetSales\Union All Sales.Outputs[Union All Output 1].Columns[SalesAmount]" dataType="cy" lineageId="349" name="SalesAmount" />
+                    <outputColumn refId="Package\Load FactInternetSales\Union All Sales.Outputs[Union All Output 1].Columns[TaxAmt]" dataType="cy" lineageId="350" name="TaxAmt" />
+                    <outputColumn refId="Package\Load FactInternetSales\Union All Sales.Outputs[Union All Output 1].Columns[OrderDate]" dataType="dbTimeStamp" lineageId="351" name="OrderDate" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load FactInternetSales\Lookup Product"
+              componentClassID="Microsoft.Lookup"
+              name="Lookup Product"
+              version="6">
+              <properties>
+                <property name="SqlCommand">select ProductAlternateKey, ProductKey from [dbo].[DimProduct]</property>
+                <property name="NoMatchBehavior">1</property>
+              </properties>
+              <connections>
+                <connection refId="Package\Load FactInternetSales\Lookup Product.Connection"
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorksDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorksDW]"
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input refId="Package\Load FactInternetSales\Lookup Product.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn refId="Package\Load FactInternetSales\Lookup Product.Inputs[Lookup Input].Columns[ProductAlternateKey]" lineageId="341" joinToReferenceColumn="ProductAlternateKey" name="ProductAlternateKey" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output refId="Package\Load FactInternetSales\Lookup Product.Outputs[Lookup Match Output]"
+                  name="Lookup Match Output">
+                  <outputColumns>
+                    <outputColumn refId="Package\Load FactInternetSales\Lookup Product.Outputs[Lookup Match Output].Columns[ProductKey]" dataType="i4" lineageId="360" name="ProductKey" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output refId="Package\Load FactInternetSales\Lookup Product.Outputs[Lookup No Match Output]"
+                  name="Lookup No Match Output">
+                  <outputColumns />
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load FactInternetSales\Lookup Customer"
+              componentClassID="Microsoft.Lookup"
+              name="Lookup Customer"
+              version="6">
+              <properties>
+                <property name="SqlCommand">select CustomerAlternateKey, CustomerKey from [dbo].[DimCustomer]</property>
+                <property name="NoMatchBehavior">1</property>
+              </properties>
+              <connections>
+                <connection refId="Package\Load FactInternetSales\Lookup Customer.Connection"
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorksDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorksDW]"
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input refId="Package\Load FactInternetSales\Lookup Customer.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn refId="Package\Load FactInternetSales\Lookup Customer.Inputs[Lookup Input].Columns[CustomerAlternateKey]" lineageId="342" joinToReferenceColumn="CustomerAlternateKey" name="CustomerAlternateKey" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output refId="Package\Load FactInternetSales\Lookup Customer.Outputs[Lookup Match Output]"
+                  name="Lookup Match Output">
+                  <outputColumns>
+                    <outputColumn refId="Package\Load FactInternetSales\Lookup Customer.Outputs[Lookup Match Output].Columns[CustomerKey]" dataType="i4" lineageId="361" name="CustomerKey" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output refId="Package\Load FactInternetSales\Lookup Customer.Outputs[Lookup No Match Output]"
+                  name="Lookup No Match Output">
+                  <outputColumns />
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load FactInternetSales\OLE DB Destination FactInternetSales"
+              componentClassID="Microsoft.OLEDBDestination"
+              name="OLE DB Destination FactInternetSales"
+              version="4">
+              <properties>
+                <property name="OpenRowset">[dbo].[FactInternetSales]</property>
+                <property name="AccessMode">0</property>
+                <property name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+              </properties>
+              <connections>
+                <connection refId="Package\Load FactInternetSales\OLE DB Destination FactInternetSales.Connection"
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorksDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorksDW]"
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input refId="Package\Load FactInternetSales\OLE DB Destination FactInternetSales.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Destination Input" hasSideEffects="true">
+                  <inputColumns>
+                    <inputColumn refId="Package\Load FactInternetSales\OLE DB Destination FactInternetSales.Inputs[OLE DB Destination Input].Columns[ProductKey]" lineageId="360" externalMetadataColumnId="EMC_ProductKey" name="ProductKey" />
+                    <inputColumn refId="Package\Load FactInternetSales\OLE DB Destination FactInternetSales.Inputs[OLE DB Destination Input].Columns[CustomerKey]" lineageId="361" externalMetadataColumnId="EMC_CustomerKey" name="CustomerKey" />
+                    <inputColumn refId="Package\Load FactInternetSales\OLE DB Destination FactInternetSales.Inputs[OLE DB Destination Input].Columns[SalesTerritoryKey]" lineageId="343" externalMetadataColumnId="EMC_SalesTerritoryKey" name="SalesTerritoryKey" />
+                    <inputColumn refId="Package\Load FactInternetSales\OLE DB Destination FactInternetSales.Inputs[OLE DB Destination Input].Columns[SalesOrderNumber]" lineageId="344" externalMetadataColumnId="EMC_SalesOrderNumber" name="SalesOrderNumber" />
+                    <inputColumn refId="Package\Load FactInternetSales\OLE DB Destination FactInternetSales.Inputs[OLE DB Destination Input].Columns[SalesOrderLineNumber]" lineageId="345" externalMetadataColumnId="EMC_SalesOrderLineNumber" name="SalesOrderLineNumber" />
+                    <inputColumn refId="Package\Load FactInternetSales\OLE DB Destination FactInternetSales.Inputs[OLE DB Destination Input].Columns[OrderQuantity]" lineageId="346" externalMetadataColumnId="EMC_OrderQuantity" name="OrderQuantity" />
+                    <inputColumn refId="Package\Load FactInternetSales\OLE DB Destination FactInternetSales.Inputs[OLE DB Destination Input].Columns[UnitPrice]" lineageId="347" externalMetadataColumnId="EMC_UnitPrice" name="UnitPrice" />
+                    <inputColumn refId="Package\Load FactInternetSales\OLE DB Destination FactInternetSales.Inputs[OLE DB Destination Input].Columns[ProductStandardCost]" lineageId="348" externalMetadataColumnId="EMC_ProductStandardCost" name="ProductStandardCost" />
+                    <inputColumn refId="Package\Load FactInternetSales\OLE DB Destination FactInternetSales.Inputs[OLE DB Destination Input].Columns[SalesAmount]" lineageId="349" externalMetadataColumnId="EMC_SalesAmount" name="SalesAmount" />
+                    <inputColumn refId="Package\Load FactInternetSales\OLE DB Destination FactInternetSales.Inputs[OLE DB Destination Input].Columns[TaxAmt]" lineageId="350" externalMetadataColumnId="EMC_TaxAmt" name="TaxAmt" />
+                    <inputColumn refId="Package\Load FactInternetSales\OLE DB Destination FactInternetSales.Inputs[OLE DB Destination Input].Columns[OrderDate]" lineageId="351" externalMetadataColumnId="EMC_OrderDate" name="OrderDate" />
+                  </inputColumns>
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn refId="EMC_ProductKey" dataType="i4" name="ProductKey" />
+                    <externalMetadataColumn refId="EMC_OrderDateKey" dataType="i4" name="OrderDateKey" />
+                    <externalMetadataColumn refId="EMC_CustomerKey" dataType="i4" name="CustomerKey" />
+                    <externalMetadataColumn refId="EMC_SalesTerritoryKey" dataType="i4" name="SalesTerritoryKey" />
+                    <externalMetadataColumn refId="EMC_SalesOrderNumber" dataType="wstr" length="20" name="SalesOrderNumber" />
+                    <externalMetadataColumn refId="EMC_SalesOrderLineNumber" dataType="ui1" name="SalesOrderLineNumber" />
+                    <externalMetadataColumn refId="EMC_OrderQuantity" dataType="i2" name="OrderQuantity" />
+                    <externalMetadataColumn refId="EMC_UnitPrice" dataType="cy" name="UnitPrice" />
+                    <externalMetadataColumn refId="EMC_ProductStandardCost" dataType="cy" name="ProductStandardCost" />
+                    <externalMetadataColumn refId="EMC_SalesAmount" dataType="cy" name="SalesAmount" />
+                    <externalMetadataColumn refId="EMC_TaxAmt" dataType="cy" name="TaxAmt" />
+                    <externalMetadataColumn refId="EMC_OrderDate" dataType="dbTimeStamp" name="OrderDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output refId="Package\Load FactInternetSales\OLE DB Destination FactInternetSales.Outputs[OLE DB Destination Error Output]"
+                  name="OLE DB Destination Error Output" isErrorOut="true">
+                  <outputColumns />
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path refId="Package\Load FactInternetSales.Paths[Online to Union]"
+              startId="Package\Load FactInternetSales\OLE DB Source SalesOnline.Outputs[OLE DB Source Output]"
+              endId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 1]" />
+            <path refId="Package\Load FactInternetSales.Paths[Reseller to Union]"
+              startId="Package\Load FactInternetSales\OLE DB Source SalesReseller.Outputs[OLE DB Source Output]"
+              endId="Package\Load FactInternetSales\Union All Sales.Inputs[Union All Input 2]" />
+            <path refId="Package\Load FactInternetSales.Paths[Union to LookupProduct]"
+              startId="Package\Load FactInternetSales\Union All Sales.Outputs[Union All Output 1]"
+              endId="Package\Load FactInternetSales\Lookup Product.Inputs[Lookup Input]" />
+            <path refId="Package\Load FactInternetSales.Paths[ProductMatch to LookupCustomer]"
+              startId="Package\Load FactInternetSales\Lookup Product.Outputs[Lookup Match Output]"
+              endId="Package\Load FactInternetSales\Lookup Customer.Inputs[Lookup Input]" />
+            <path refId="Package\Load FactInternetSales.Paths[CustomerMatch to Destination]"
+              startId="Package\Load FactInternetSales\Lookup Customer.Outputs[Lookup Match Output]"
+              endId="Package\Load FactInternetSales\OLE DB Destination FactInternetSales.Inputs[OLE DB Destination Input]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+</DTS:Executable>

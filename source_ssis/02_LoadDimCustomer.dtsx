@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/25/2026 3:10:00 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:DTSID="{1D3D0F5B-BFAF-436D-9D51-A8DD4D550CB4}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="02_LoadDimCustomer"
+  DTS:PackageType="5"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{B7D33CC3-4177-488D-8F0A-A63E812DE285}">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AdventureWorksDW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{54BCE8E5-9D0A-4C91-9E3E-161D84CA09FF}"
+      DTS:ObjectName="AdventureWorksDW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=localhost;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load DimCustomer"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{62D3302F-E507-4423-8CA0-304C63FB23D9}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:ObjectName="Load DimCustomer">
+      <DTS:ObjectData>
+        <pipeline version="1">
+          <components>
+            <component
+              refId="Package\Load DimCustomer\OLE DB Source Customer"
+              componentClassID="Microsoft.OLEDBSource"
+              name="OLE DB Source Customer"
+              version="7">
+              <properties>
+                <property name="OpenRowset">[stg].[Customer]</property>
+                <property name="AccessMode">0</property>
+              </properties>
+              <connections>
+                <connection refId="Package\Load DimCustomer\OLE DB Source Customer.Connection"
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorksDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorksDW]"
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output refId="Package\Load DimCustomer\OLE DB Source Customer.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn refId="Package\Load DimCustomer\OLE DB Source Customer.Outputs[OLE DB Source Output].Columns[CustomerAlternateKey]" dataType="wstr" length="15" lineageId="201" name="CustomerAlternateKey" />
+                    <outputColumn refId="Package\Load DimCustomer\OLE DB Source Customer.Outputs[OLE DB Source Output].Columns[GeographyKey]" dataType="i4" lineageId="202" name="GeographyKey" />
+                    <outputColumn refId="Package\Load DimCustomer\OLE DB Source Customer.Outputs[OLE DB Source Output].Columns[FirstName]" dataType="wstr" length="50" lineageId="203" name="FirstName" />
+                    <outputColumn refId="Package\Load DimCustomer\OLE DB Source Customer.Outputs[OLE DB Source Output].Columns[LastName]" dataType="wstr" length="50" lineageId="204" name="LastName" />
+                    <outputColumn refId="Package\Load DimCustomer\OLE DB Source Customer.Outputs[OLE DB Source Output].Columns[BirthDate]" dataType="dbDate" lineageId="205" name="BirthDate" />
+                    <outputColumn refId="Package\Load DimCustomer\OLE DB Source Customer.Outputs[OLE DB Source Output].Columns[MaritalStatus]" dataType="wstr" length="2" lineageId="206" name="MaritalStatus" />
+                    <outputColumn refId="Package\Load DimCustomer\OLE DB Source Customer.Outputs[OLE DB Source Output].Columns[Gender]" dataType="wstr" length="10" lineageId="207" name="Gender" />
+                    <outputColumn refId="Package\Load DimCustomer\OLE DB Source Customer.Outputs[OLE DB Source Output].Columns[EmailAddress]" dataType="wstr" length="50" lineageId="208" name="EmailAddress" />
+                    <outputColumn refId="Package\Load DimCustomer\OLE DB Source Customer.Outputs[OLE DB Source Output].Columns[YearlyIncome]" dataType="cy" lineageId="209" name="YearlyIncome" />
+                    <outputColumn refId="Package\Load DimCustomer\OLE DB Source Customer.Outputs[OLE DB Source Output].Columns[EnglishEducation]" dataType="str" length="40" codePage="1252" lineageId="210" name="EnglishEducation" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output refId="Package\Load DimCustomer\OLE DB Source Customer.Outputs[OLE DB Source Error Output]"
+                  name="OLE DB Source Error Output" isErrorOut="true">
+                  <outputColumns />
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load DimCustomer\Data Conversion Clean"
+              componentClassID="Microsoft.DataConvert"
+              name="Data Conversion Clean"
+              version="4">
+              <inputs>
+                <input refId="Package\Load DimCustomer\Data Conversion Clean.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn refId="Package\Load DimCustomer\Data Conversion Clean.Inputs[Data Conversion Input].Columns[MaritalStatus]" lineageId="206" name="MaritalStatus" />
+                    <inputColumn refId="Package\Load DimCustomer\Data Conversion Clean.Inputs[Data Conversion Input].Columns[Gender]" lineageId="207" name="Gender" />
+                    <inputColumn refId="Package\Load DimCustomer\Data Conversion Clean.Inputs[Data Conversion Input].Columns[EnglishEducation]" lineageId="210" name="EnglishEducation" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output refId="Package\Load DimCustomer\Data Conversion Clean.Outputs[Data Conversion Output]"
+                  name="Data Conversion Output">
+                  <outputColumns>
+                    <outputColumn refId="Package\Load DimCustomer\Data Conversion Clean.Outputs[Data Conversion Output].Columns[MaritalStatus_clean]" dataType="wstr" length="1" lineageId="211" name="MaritalStatus_clean">
+                      <properties>
+                        <property name="SourceInputColumnLineageID">206</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn refId="Package\Load DimCustomer\Data Conversion Clean.Outputs[Data Conversion Output].Columns[Gender_clean]" dataType="wstr" length="1" lineageId="212" name="Gender_clean">
+                      <properties>
+                        <property name="SourceInputColumnLineageID">207</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn refId="Package\Load DimCustomer\Data Conversion Clean.Outputs[Data Conversion Output].Columns[EnglishEducation_Unicode]" dataType="wstr" length="40" lineageId="213" name="EnglishEducation_Unicode">
+                      <properties>
+                        <property name="SourceInputColumnLineageID">210</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load DimCustomer\Derived Column FullName"
+              componentClassID="Microsoft.DerivedColumn"
+              name="Derived Column FullName"
+              version="9">
+              <inputs>
+                <input refId="Package\Load DimCustomer\Derived Column FullName.Inputs[Derived Column Input]"
+                  name="Derived Column Input">
+                  <inputColumns />
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output refId="Package\Load DimCustomer\Derived Column FullName.Outputs[Derived Column Output]"
+                  name="Derived Column Output">
+                  <outputColumns>
+                    <outputColumn refId="Package\Load DimCustomer\Derived Column FullName.Outputs[Derived Column Output].Columns[FullName]" dataType="wstr" length="101" lineageId="214" name="FullName">
+                      <properties>
+                        <property name="Expression">[FirstName] + " " + [LastName]</property>
+                        <property name="FriendlyExpression">[FirstName] + " " + [LastName]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load DimCustomer\OLE DB Destination DimCustomer"
+              componentClassID="Microsoft.OLEDBDestination"
+              name="OLE DB Destination DimCustomer"
+              version="4">
+              <properties>
+                <property name="OpenRowset">[dbo].[DimCustomer]</property>
+                <property name="AccessMode">0</property>
+                <property name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+              </properties>
+              <connections>
+                <connection refId="Package\Load DimCustomer\OLE DB Destination DimCustomer.Connection"
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorksDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorksDW]"
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input refId="Package\Load DimCustomer\OLE DB Destination DimCustomer.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Destination Input" hasSideEffects="true">
+                  <inputColumns>
+                    <inputColumn refId="Package\Load DimCustomer\OLE DB Destination DimCustomer.Inputs[OLE DB Destination Input].Columns[CustomerAlternateKey]" lineageId="201" externalMetadataColumnId="EMC_CustomerAlternateKey" name="CustomerAlternateKey" />
+                    <inputColumn refId="Package\Load DimCustomer\OLE DB Destination DimCustomer.Inputs[OLE DB Destination Input].Columns[GeographyKey]" lineageId="202" externalMetadataColumnId="EMC_GeographyKey" name="GeographyKey" />
+                    <inputColumn refId="Package\Load DimCustomer\OLE DB Destination DimCustomer.Inputs[OLE DB Destination Input].Columns[FirstName]" lineageId="203" externalMetadataColumnId="EMC_FirstName" name="FirstName" />
+                    <inputColumn refId="Package\Load DimCustomer\OLE DB Destination DimCustomer.Inputs[OLE DB Destination Input].Columns[LastName]" lineageId="204" externalMetadataColumnId="EMC_LastName" name="LastName" />
+                    <inputColumn refId="Package\Load DimCustomer\OLE DB Destination DimCustomer.Inputs[OLE DB Destination Input].Columns[FullName]" lineageId="214" externalMetadataColumnId="EMC_FullName" name="FullName" />
+                    <inputColumn refId="Package\Load DimCustomer\OLE DB Destination DimCustomer.Inputs[OLE DB Destination Input].Columns[BirthDate]" lineageId="205" externalMetadataColumnId="EMC_BirthDate" name="BirthDate" />
+                    <inputColumn refId="Package\Load DimCustomer\OLE DB Destination DimCustomer.Inputs[OLE DB Destination Input].Columns[MaritalStatus]" lineageId="211" externalMetadataColumnId="EMC_MaritalStatus" name="MaritalStatus" />
+                    <inputColumn refId="Package\Load DimCustomer\OLE DB Destination DimCustomer.Inputs[OLE DB Destination Input].Columns[Gender]" lineageId="212" externalMetadataColumnId="EMC_Gender" name="Gender" />
+                    <inputColumn refId="Package\Load DimCustomer\OLE DB Destination DimCustomer.Inputs[OLE DB Destination Input].Columns[EmailAddress]" lineageId="208" externalMetadataColumnId="EMC_EmailAddress" name="EmailAddress" />
+                    <inputColumn refId="Package\Load DimCustomer\OLE DB Destination DimCustomer.Inputs[OLE DB Destination Input].Columns[YearlyIncome]" lineageId="209" externalMetadataColumnId="EMC_YearlyIncome" name="YearlyIncome" />
+                    <inputColumn refId="Package\Load DimCustomer\OLE DB Destination DimCustomer.Inputs[OLE DB Destination Input].Columns[EnglishEducation]" lineageId="213" externalMetadataColumnId="EMC_EnglishEducation" name="EnglishEducation" />
+                  </inputColumns>
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn refId="EMC_CustomerAlternateKey" dataType="wstr" length="15" name="CustomerAlternateKey" />
+                    <externalMetadataColumn refId="EMC_GeographyKey" dataType="i4" name="GeographyKey" />
+                    <externalMetadataColumn refId="EMC_FirstName" dataType="wstr" length="50" name="FirstName" />
+                    <externalMetadataColumn refId="EMC_LastName" dataType="wstr" length="50" name="LastName" />
+                    <externalMetadataColumn refId="EMC_FullName" dataType="wstr" length="101" name="FullName" />
+                    <externalMetadataColumn refId="EMC_BirthDate" dataType="dbDate" name="BirthDate" />
+                    <externalMetadataColumn refId="EMC_MaritalStatus" dataType="wstr" length="1" name="MaritalStatus" />
+                    <externalMetadataColumn refId="EMC_Gender" dataType="wstr" length="1" name="Gender" />
+                    <externalMetadataColumn refId="EMC_EmailAddress" dataType="wstr" length="50" name="EmailAddress" />
+                    <externalMetadataColumn refId="EMC_YearlyIncome" dataType="cy" name="YearlyIncome" />
+                    <externalMetadataColumn refId="EMC_EnglishEducation" dataType="wstr" length="40" name="EnglishEducation" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output refId="Package\Load DimCustomer\OLE DB Destination DimCustomer.Outputs[OLE DB Destination Error Output]"
+                  name="OLE DB Destination Error Output" isErrorOut="true">
+                  <outputColumns />
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path refId="Package\Load DimCustomer.Paths[Source to DataConvert]"
+              startId="Package\Load DimCustomer\OLE DB Source Customer.Outputs[OLE DB Source Output]"
+              endId="Package\Load DimCustomer\Data Conversion Clean.Inputs[Data Conversion Input]" />
+            <path refId="Package\Load DimCustomer.Paths[DataConvert to Derived]"
+              startId="Package\Load DimCustomer\Data Conversion Clean.Outputs[Data Conversion Output]"
+              endId="Package\Load DimCustomer\Derived Column FullName.Inputs[Derived Column Input]" />
+            <path refId="Package\Load DimCustomer.Paths[Derived to Destination]"
+              startId="Package\Load DimCustomer\Derived Column FullName.Outputs[Derived Column Output]"
+              endId="Package\Load DimCustomer\OLE DB Destination DimCustomer.Inputs[OLE DB Destination Input]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+</DTS:Executable>

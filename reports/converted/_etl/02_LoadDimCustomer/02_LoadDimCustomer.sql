@@ -1,0 +1,16 @@
+CREATE OR REPLACE TASK public.t_02_loaddimcustomer
+COMMENT = '{ "description": "", "origin": "sf_sc", "name": "snowconvert", "version": {  "major": 2,  "minor": 33,  "patch": "0-Pr.127" }, "attributes": {  "component": "transact",  "convertedOn": "06-26-2026",  "domain": "no-domain-provided",  "migrationid": "7QSfAc7FXnCnqtANrjQzNA==" }}'
+AS
+SELECT
+   1;
+CREATE OR REPLACE TASK public.t_02_loaddimcustomer_load_dimcustomer
+WAREHOUSE=DUMMY_WAREHOUSE
+AFTER public.t_02_loaddimcustomer
+AS
+BEGIN
+   ---- Start block 'Package\Load DimCustomer'
+   EXECUTE DBT PROJECT public.Load_DimCustomer ARGS='build --target dev';
+   ---- End block 'Package\Load DimCustomer'
+
+END;
+

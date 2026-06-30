@@ -1,0 +1,14 @@
+# OS cruft
+.DS_Store
+
+# Secrets — never commit
+trail-pat-token-secret.txt
+*.bak
+*token*secret*
+*.pat
+.snowflake/
+
+# Tool-internal agent workspace + session state (not for publication)
+# (also contains Snowflake account locators/usernames in logs — keep out)
+migration_workspace/
+.cortex/

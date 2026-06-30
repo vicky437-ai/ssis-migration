@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: stg
+    schema: stg
+    tables:
+      - name: SalesOnline
+        description: Staging online sales transactions
+      - name: SalesReseller
+        description: Staging reseller sales transactions
+
+  - name: dbo
+    schema: dbo
+    tables:
+      - name: DimProduct
+        description: Product dimension (lookup target for ProductKey resolution)
+      - name: DimCustomer
+        description: Customer dimension (lookup target for CustomerKey resolution)

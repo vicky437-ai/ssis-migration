@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: load_fact_internet_sales
+    description: >
+      Loads the internet sales fact table by unioning stg.SalesOnline and
+      stg.SalesReseller, resolving ProductKey via lookup on DimProduct
+      (ProductAlternateKey) and CustomerKey via lookup on DimCustomer
+      (CustomerAlternateKey). OrderDateKey is derived from OrderDate.
+      Migrated from SSIS package 03_LoadFactInternetSales.dtsx.
+    columns:
+      - name: ProductKey
+        description: FK to DimProduct (resolved via Lookup on ProductAlternateKey)
+      - name: OrderDateKey
+        description: Date key derived as YYYYMMDD integer from OrderDate
+      - name: CustomerKey
+        description: FK to DimCustomer (resolved via Lookup on CustomerAlternateKey)
+      - name: SalesTerritoryKey
+        description: Sales territory identifier
+      - name: SalesOrderNumber
+        description: Order number (part of composite PK)
+      - name: SalesOrderLineNumber
+        description: Line item number (part of composite PK)
+      - name: OrderQuantity
+        description: Quantity ordered
+      - name: UnitPrice
+        description: Price per unit (MONEY → NUMBER(38,4))
+      - name: ProductStandardCost
+        description: Standard cost per unit (MONEY → NUMBER(38,4))
+      - name: SalesAmount
+        description: Total line amount (MONEY → NUMBER(38,4))
+      - name: TaxAmt
+        description: Tax amount (MONEY → NUMBER(38,4))
+      - name: OrderDate
+        description: Order timestamp

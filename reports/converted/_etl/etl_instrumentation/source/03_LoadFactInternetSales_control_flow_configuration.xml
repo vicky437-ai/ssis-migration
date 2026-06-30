@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ControlFlowInstrumentation>
+  <TaskConfig TaskName="Load FactInternetSales" TaskRefId="Package\Load FactInternetSales" TaskGuid="{5524006C-F613-4CE9-B189-8A6F06E039C5}">
+    <TableToMonitor Name="[FactInternetSales]" Schema="[dbo]" ConnectionManagerId="AdventureWorksDW" />
+  </TaskConfig>
+</ControlFlowInstrumentation>

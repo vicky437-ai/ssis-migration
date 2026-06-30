@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/25/2026 3:00:00 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:DTSID="{671EF28E-06F6-4322-8A45-581131EC85C5}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="04_StageCurrencyRates"
+  DTS:PackageType="5"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{DBDF80FF-EA09-499A-99FF-2A789549E832}">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[SampleCurrencyData]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{EB1A910F-A384-482A-9DBE-878D01523390}"
+      DTS:ObjectName="SampleCurrencyData">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="False"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="C:\SSISPOC\source_ssis\SampleCurrencyData.txt">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn DTS:ColumnType="Delimited" DTS:ColumnDelimiter="_x0009_" DTS:DataType="9" DTS:MaximumWidth="10" DTS:ObjectName="AverageRate" DTS:DTSID="{A61DD3B6-8093-4A36-8170-67BB17D6E244}" />
+            <DTS:FlatFileColumn DTS:ColumnType="Delimited" DTS:ColumnDelimiter="_x0009_" DTS:DataType="3" DTS:ObjectName="CurrencyKey" DTS:DTSID="{B7481F0A-B7EC-4B5F-8CBB-C3F1A2007817}" />
+            <DTS:FlatFileColumn DTS:ColumnType="Delimited" DTS:ColumnDelimiter="_x0009_" DTS:DataType="3" DTS:ObjectName="CurrencyDateKey" DTS:DTSID="{2BE3F0E0-60B7-4FE1-B5C0-A6B532B83898}" />
+            <DTS:FlatFileColumn DTS:ColumnType="Delimited" DTS:ColumnDelimiter="_x000D__x000A_" DTS:DataType="9" DTS:MaximumWidth="10" DTS:ObjectName="EndOfDayRate" DTS:DTSID="{DEE499FA-C109-4134-9E99-4927DF4B34E2}" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AdventureWorksDW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{3E82E6F0-C185-48BE-A9A5-94DA02F4B92A}"
+      DTS:ObjectName="AdventureWorksDW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=localhost;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Stage Currency Rates"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{E485E578-ECAC-4805-8686-CB5DA77D15CB}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:ObjectName="Stage Currency Rates">
+      <DTS:ObjectData>
+        <pipeline version="1">
+          <components>
+            <component
+              refId="Package\Stage Currency Rates\Flat File Source CurrencyData"
+              componentClassID="Microsoft.FlatFileSource"
+              name="Flat File Source CurrencyData"
+              version="6">
+              <properties>
+                <property name="RetainNulls">false</property>
+              </properties>
+              <connections>
+                <connection refId="Package\Stage Currency Rates\Flat File Source CurrencyData.Connection"
+                  connectionManagerID="Package.ConnectionManagers[SampleCurrencyData]"
+                  connectionManagerRefId="Package.ConnectionManagers[SampleCurrencyData]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output refId="Package\Stage Currency Rates\Flat File Source CurrencyData.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn refId="Package\Stage Currency Rates\Flat File Source CurrencyData.Outputs[Flat File Source Output].Columns[AverageRate]" dataType="r8" lineageId="11" name="AverageRate" externalMetadataColumnId="EMC_S_AverageRate" />
+                    <outputColumn refId="Package\Stage Currency Rates\Flat File Source CurrencyData.Outputs[Flat File Source Output].Columns[CurrencyKey]" dataType="i4" lineageId="12" name="CurrencyKey" externalMetadataColumnId="EMC_S_CurrencyKey" />
+                    <outputColumn refId="Package\Stage Currency Rates\Flat File Source CurrencyData.Outputs[Flat File Source Output].Columns[CurrencyDateKey]" dataType="i4" lineageId="13" name="CurrencyDateKey" externalMetadataColumnId="EMC_S_CurrencyDateKey" />
+                    <outputColumn refId="Package\Stage Currency Rates\Flat File Source CurrencyData.Outputs[Flat File Source Output].Columns[EndOfDayRate]" dataType="r8" lineageId="14" name="EndOfDayRate" externalMetadataColumnId="EMC_S_EndOfDayRate" />
+                  </outputColumns>
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn refId="EMC_S_AverageRate" dataType="r8" name="AverageRate" />
+                    <externalMetadataColumn refId="EMC_S_CurrencyKey" dataType="i4" name="CurrencyKey" />
+                    <externalMetadataColumn refId="EMC_S_CurrencyDateKey" dataType="i4" name="CurrencyDateKey" />
+                    <externalMetadataColumn refId="EMC_S_EndOfDayRate" dataType="r8" name="EndOfDayRate" />
+                  </externalMetadataColumns>
+                </output>
+                <output refId="Package\Stage Currency Rates\Flat File Source CurrencyData.Outputs[Flat File Source Error Output]"
+                  name="Flat File Source Error Output" isErrorOut="true">
+                  <outputColumns />
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Stage Currency Rates\OLE DB Destination CurrencyRate"
+              componentClassID="Microsoft.OLEDBDestination"
+              name="OLE DB Destination CurrencyRate"
+              version="4">
+              <properties>
+                <property name="OpenRowset">[stg].[CurrencyRate]</property>
+                <property name="AccessMode">0</property>
+                <property name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+              </properties>
+              <connections>
+                <connection refId="Package\Stage Currency Rates\OLE DB Destination CurrencyRate.Connection"
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorksDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorksDW]"
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input refId="Package\Stage Currency Rates\OLE DB Destination CurrencyRate.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Destination Input" hasSideEffects="true">
+                  <inputColumns>
+                    <inputColumn refId="Package\Stage Currency Rates\OLE DB Destination CurrencyRate.Inputs[OLE DB Destination Input].Columns[AverageRate]" lineageId="11" externalMetadataColumnId="EMC_AverageRate" name="AverageRate" />
+                    <inputColumn refId="Package\Stage Currency Rates\OLE DB Destination CurrencyRate.Inputs[OLE DB Destination Input].Columns[CurrencyKey]" lineageId="12" externalMetadataColumnId="EMC_CurrencyKey" name="CurrencyKey" />
+                    <inputColumn refId="Package\Stage Currency Rates\OLE DB Destination CurrencyRate.Inputs[OLE DB Destination Input].Columns[CurrencyDateKey]" lineageId="13" externalMetadataColumnId="EMC_CurrencyDateKey" name="CurrencyDateKey" />
+                    <inputColumn refId="Package\Stage Currency Rates\OLE DB Destination CurrencyRate.Inputs[OLE DB Destination Input].Columns[EndOfDayRate]" lineageId="14" externalMetadataColumnId="EMC_EndOfDayRate" name="EndOfDayRate" />
+                  </inputColumns>
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn refId="EMC_AverageRate" dataType="r8" name="AverageRate" />
+                    <externalMetadataColumn refId="EMC_CurrencyKey" dataType="i4" name="CurrencyKey" />
+                    <externalMetadataColumn refId="EMC_CurrencyDateKey" dataType="i4" name="CurrencyDateKey" />
+                    <externalMetadataColumn refId="EMC_EndOfDayRate" dataType="r8" name="EndOfDayRate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output refId="Package\Stage Currency Rates\OLE DB Destination CurrencyRate.Outputs[OLE DB Destination Error Output]"
+                  name="OLE DB Destination Error Output" isErrorOut="true">
+                  <outputColumns />
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path refId="Package\Stage Currency Rates.Paths[FlatFile to Destination]"
+              startId="Package\Stage Currency Rates\Flat File Source CurrencyData.Outputs[Flat File Source Output]"
+              endId="Package\Stage Currency Rates\OLE DB Destination CurrencyRate.Inputs[OLE DB Destination Input]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+</DTS:Executable>

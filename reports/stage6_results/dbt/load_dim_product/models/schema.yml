@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: load_dim_product
+    description: >
+      Loads the product dimension from stg.Product, filtering to only products
+      with a valid subcategory (via INNER JOIN to DimProductSubcategory) and
+      defaulting NULL Status values to 'Outdated'.
+      Migrated from SSIS package 01_LoadDimProduct.dtsx.
+    columns:
+      - name: ProductKey
+        description: Surrogate key generated via ROW_NUMBER
+      - name: ProductAlternateKey
+        description: Natural key from source system
+      - name: EnglishProductName
+        description: Product display name
+      - name: ProductSubcategoryKey
+        description: FK to DimProductSubcategory (validated by lookup join)
+      - name: Color
+        description: Product color
+      - name: Size
+        description: Product size designation
+      - name: StandardCost
+        description: Manufacturing cost (MONEY → NUMBER(38,4))
+      - name: ListPrice
+        description: Retail price (MONEY → NUMBER(38,4))
+      - name: ModelName
+        description: Product model grouping
+      - name: Status
+        description: "Product status; NULLs replaced with 'Outdated' (Derived Column transform)"

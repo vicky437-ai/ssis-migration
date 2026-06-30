@@ -1,0 +1,35 @@
+version: 2
+
+models:
+  - name: load_dim_customer
+    description: >
+      Loads the customer dimension from stg.Customer, cleaning Gender and
+      MaritalStatus to single-character codes (Data Conversion), converting
+      EnglishEducation from VARCHAR to NVARCHAR, and computing FullName as
+      FirstName + ' ' + LastName (Derived Column).
+      Migrated from SSIS package 02_LoadDimCustomer.dtsx.
+    columns:
+      - name: CustomerKey
+        description: Surrogate key generated via ROW_NUMBER
+      - name: GeographyKey
+        description: FK to DimGeography
+      - name: CustomerAlternateKey
+        description: Natural key from source system
+      - name: FirstName
+        description: Customer first name
+      - name: LastName
+        description: Customer last name
+      - name: FullName
+        description: "Derived: FirstName || ' ' || LastName"
+      - name: BirthDate
+        description: Date of birth
+      - name: MaritalStatus
+        description: "Single character: M/S (Data Conversion truncates 'Married'→'M', 'Single'→'S')"
+      - name: Gender
+        description: "Single character: M/F (Data Conversion truncates 'Male'→'M', 'Female'→'F')"
+      - name: EmailAddress
+        description: Customer email
+      - name: YearlyIncome
+        description: Annual income (MONEY → NUMBER(38,4))
+      - name: EnglishEducation
+        description: Education level (VARCHAR→NVARCHAR conversion)

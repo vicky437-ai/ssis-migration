@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: stg
+    schema: stg
+    tables:
+      - name: Customer
+        description: Staging customer table with dirty Gender/MaritalStatus values

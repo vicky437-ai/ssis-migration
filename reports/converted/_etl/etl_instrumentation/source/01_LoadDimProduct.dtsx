@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable
+  xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/25/2026 3:05:00 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:DTSID="{0E2F23DC-4D8E-4182-A159-7D5F8A3FE3AB}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.2000.180"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="01_LoadDimProduct"
+  DTS:PackageType="5"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{A674EB3F-6131-412B-AED7-8EDB77A7A217}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[AdventureWorksDW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{636D42FC-846F-459D-8D7A-9A569649E344}"
+      DTS:ObjectName="AdventureWorksDW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=localhost;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+      DTS:refId="Package.ConnectionManagers[snow_convert_row_count_log]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{A87D4BE1-95CB-4FEC-BEE2-DB5B9285B3AE}"
+      DTS:ObjectName="snow_convert_row_count_log">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[User::SnowConvertLogsDirectory] +
+ "\\" +
+ @[System::PackageName] +
+"_" +
+"data_flow_log" +
+".csv"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:FileUsageType="1"
+          DTS:ConnectionString="C:\temp\DfLogging_20000101_000000.txt" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+      DTS:CreationName=""
+      DTS:DTSID="{BE85508E-ABDD-4D05-9EC9-51AE07208500}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SnowConvertLogsDirectory">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\tmp\</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:LogProviders>
+    <DTS:LogProvider
+      xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+      DTS:ConfigString="snow_convert_row_count_log"
+      DTS:CreationName="Microsoft.LogProviderTextFile"
+      DTS:Description="Writes log entries for events to a CSV file"
+      DTS:DTSID="{5C9EC193-E668-4F99-9E8A-0FF88E433480}"
+      DTS:ObjectName="SSIS log provider for Text files">
+      <DTS:ObjectData>
+        <InnerObject />
+      </DTS:ObjectData>
+    </DTS:LogProvider>
+  </DTS:LogProviders>
+  <DTS:LoggingOptions
+    xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+    DTS:FilterKind="0"
+    DTS:LoggingMode="1">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">1,18,OnPipelineRowsSent</DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnPipelineRowsSent"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:SelectedLogProviders>
+      <DTS:SelectedLogProvider
+        DTS:InstanceID="{5C9EC193-E668-4F99-9E8A-0FF88E433480}" />
+    </DTS:SelectedLogProviders>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load DimProduct"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DTSID="{DFDE3DB8-A05A-47A2-86E4-8ECACBCE3993}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:ObjectName="Load DimProduct">
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load DimProduct\OLE DB Source Product"
+              componentClassID="Microsoft.OLEDBSource"
+              name="OLE DB Source Product"
+              version="7">
+              <properties>
+                <property
+                  name="OpenRowset">[stg].[Product]</property>
+                <property
+                  name="AccessMode">0</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load DimProduct\OLE DB Source Product.Connection"
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorksDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorksDW]"
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load DimProduct\OLE DB Source Product.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load DimProduct\OLE DB Source Product.Outputs[OLE DB Source Output].Columns[ProductAlternateKey]"
+                      dataType="wstr"
+                      length="25"
+                      lineageId="101"
+                      name="ProductAlternateKey" />
+                    <outputColumn
+                      refId="Package\Load DimProduct\OLE DB Source Product.Outputs[OLE DB Source Output].Columns[EnglishProductName]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="102"
+                      name="EnglishProductName" />
+                    <outputColumn
+                      refId="Package\Load DimProduct\OLE DB Source Product.Outputs[OLE DB Source Output].Columns[ProductSubcategoryKey]"
+                      dataType="i4"
+                      lineageId="103"
+                      name="ProductSubcategoryKey" />
+                    <outputColumn
+                      refId="Package\Load DimProduct\OLE DB Source Product.Outputs[OLE DB Source Output].Columns[Color]"
+                      dataType="wstr"
+                      length="15"
+                      lineageId="104"
+                      name="Color" />
+                    <outputColumn
+                      refId="Package\Load DimProduct\OLE DB Source Product.Outputs[OLE DB Source Output].Columns[Size]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="105"
+                      name="Size" />
+                    <outputColumn
+                      refId="Package\Load DimProduct\OLE DB Source Product.Outputs[OLE DB Source Output].Columns[StandardCost]"
+                      dataType="cy"
+                      lineageId="106"
+                      name="StandardCost" />
+                    <outputColumn
+                      refId="Package\Load DimProduct\OLE DB Source Product.Outputs[OLE DB Source Output].Columns[ListPrice]"
+                      dataType="cy"
+                      lineageId="107"
+                      name="ListPrice" />
+                    <outputColumn
+                      refId="Package\Load DimProduct\OLE DB Source Product.Outputs[OLE DB Source Output].Columns[ModelName]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="108"
+                      name="ModelName" />
+                    <outputColumn
+                      refId="Package\Load DimProduct\OLE DB Source Product.Outputs[OLE DB Source Output].Columns[Status]"
+                      dataType="wstr"
+                      length="7"
+                      lineageId="109"
+                      name="Status" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load DimProduct\OLE DB Source Product.Outputs[OLE DB Source Error Output]"
+                  name="OLE DB Source Error Output"
+                  isErrorOut="true">
+                  <outputColumns />
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load DimProduct\Lookup Subcategory"
+              componentClassID="Microsoft.Lookup"
+              name="Lookup Subcategory"
+              version="6">
+              <properties>
+                <property
+                  name="SqlCommand">select ProductSubcategoryKey, EnglishProductSubcategoryName from [dbo].[DimProductSubcategory]</property>
+                <property
+                  name="NoMatchBehavior">1</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load DimProduct\Lookup Subcategory.Connection"
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorksDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorksDW]"
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load DimProduct\Lookup Subcategory.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load DimProduct\Lookup Subcategory.Inputs[Lookup Input].Columns[ProductSubcategoryKey]"
+                      lineageId="103"
+                      joinToReferenceColumn="ProductSubcategoryKey"
+                      name="ProductSubcategoryKey" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load DimProduct\Lookup Subcategory.Outputs[Lookup Match Output]"
+                  name="Lookup Match Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load DimProduct\Lookup Subcategory.Outputs[Lookup Match Output].Columns[EnglishProductSubcategoryName]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="110"
+                      name="EnglishProductSubcategoryName" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load DimProduct\Lookup Subcategory.Outputs[Lookup No Match Output]"
+                  name="Lookup No Match Output">
+                  <outputColumns />
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load DimProduct\Derived Column Status"
+              componentClassID="Microsoft.DerivedColumn"
+              name="Derived Column Status"
+              version="9">
+              <inputs>
+                <input
+                  refId="Package\Load DimProduct\Derived Column Status.Inputs[Derived Column Input]"
+                  name="Derived Column Input">
+                  <inputColumns />
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load DimProduct\Derived Column Status.Outputs[Derived Column Output]"
+                  name="Derived Column Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load DimProduct\Derived Column Status.Outputs[Derived Column Output].Columns[ProductStatus]"
+                      dataType="wstr"
+                      length="7"
+                      lineageId="111"
+                      name="ProductStatus">
+                      <properties>
+                        <property
+                          name="Expression">ISNULL([Status]) ? (DT_WSTR,7)"Outdated" : [Status]</property>
+                        <property
+                          name="FriendlyExpression">ISNULL([Status]) ? "Outdated" : [Status]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load DimProduct\OLE DB Destination DimProduct"
+              componentClassID="Microsoft.OLEDBDestination"
+              name="OLE DB Destination DimProduct"
+              version="4">
+              <properties>
+                <property
+                  name="OpenRowset">[dbo].[DimProduct]</property>
+                <property
+                  name="AccessMode">0</property>
+                <property
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load DimProduct\OLE DB Destination DimProduct.Connection"
+                  connectionManagerID="Package.ConnectionManagers[AdventureWorksDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[AdventureWorksDW]"
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load DimProduct\OLE DB Destination DimProduct.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Destination Input"
+                  hasSideEffects="true">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load DimProduct\OLE DB Destination DimProduct.Inputs[OLE DB Destination Input].Columns[ProductAlternateKey]"
+                      lineageId="101"
+                      externalMetadataColumnId="EMC_ProductAlternateKey"
+                      name="ProductAlternateKey" />
+                    <inputColumn
+                      refId="Package\Load DimProduct\OLE DB Destination DimProduct.Inputs[OLE DB Destination Input].Columns[EnglishProductName]"
+                      lineageId="102"
+                      externalMetadataColumnId="EMC_EnglishProductName"
+                      name="EnglishProductName" />
+                    <inputColumn
+                      refId="Package\Load DimProduct\OLE DB Destination DimProduct.Inputs[OLE DB Destination Input].Columns[ProductSubcategoryKey]"
+                      lineageId="103"
+                      externalMetadataColumnId="EMC_ProductSubcategoryKey"
+                      name="ProductSubcategoryKey" />
+                    <inputColumn
+                      refId="Package\Load DimProduct\OLE DB Destination DimProduct.Inputs[OLE DB Destination Input].Columns[Color]"
+                      lineageId="104"
+                      externalMetadataColumnId="EMC_Color"
+                      name="Color" />
+                    <inputColumn
+                      refId="Package\Load DimProduct\OLE DB Destination DimProduct.Inputs[OLE DB Destination Input].Columns[Size]"
+                      lineageId="105"
+                      externalMetadataColumnId="EMC_Size"
+                      name="Size" />
+                    <inputColumn
+                      refId="Package\Load DimProduct\OLE DB Destination DimProduct.Inputs[OLE DB Destination Input].Columns[StandardCost]"
+                      lineageId="106"
+                      externalMetadataColumnId="EMC_StandardCost"
+                      name="StandardCost" />
+                    <inputColumn
+                      refId="Package\Load DimProduct\OLE DB Destination DimProduct.Inputs[OLE DB Destination Input].Columns[ListPrice]"
+                      lineageId="107"
+                      externalMetadataColumnId="EMC_ListPrice"
+                      name="ListPrice" />
+                    <inputColumn
+                      refId="Package\Load DimProduct\OLE DB Destination DimProduct.Inputs[OLE DB Destination Input].Columns[ModelName]"
+                      lineageId="108"
+                      externalMetadataColumnId="EMC_ModelName"
+                      name="ModelName" />
+                    <inputColumn
+                      refId="Package\Load DimProduct\OLE DB Destination DimProduct.Inputs[OLE DB Destination Input].Columns[Status]"
+                      lineageId="111"
+                      externalMetadataColumnId="EMC_Status"
+                      name="Status" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="EMC_ProductAlternateKey"
+                      dataType="wstr"
+                      length="25"
+                      name="ProductAlternateKey" />
+                    <externalMetadataColumn
+                      refId="EMC_EnglishProductName"
+                      dataType="wstr"
+                      length="50"
+                      name="EnglishProductName" />
+                    <externalMetadataColumn
+                      refId="EMC_ProductSubcategoryKey"
+                      dataType="i4"
+                      name="ProductSubcategoryKey" />
+                    <externalMetadataColumn
+                      refId="EMC_Color"
+                      dataType="wstr"
+                      length="15"
+                      name="Color" />
+                    <externalMetadataColumn
+                      refId="EMC_Size"
+                      dataType="wstr"
+                      length="50"
+                      name="Size" />
+                    <externalMetadataColumn
+                      refId="EMC_StandardCost"
+                      dataType="cy"
+                      name="StandardCost" />
+                    <externalMetadataColumn
+                      refId="EMC_ListPrice"
+                      dataType="cy"
+                      name="ListPrice" />
+                    <externalMetadataColumn
+                      refId="EMC_ModelName"
+                      dataType="wstr"
+                      length="50"
+                      name="ModelName" />
+                    <externalMetadataColumn
+                      refId="EMC_Status"
+                      dataType="wstr"
+                      length="7"
+                      name="Status" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load DimProduct\OLE DB Destination DimProduct.Outputs[OLE DB Destination Error Output]"
+                  name="OLE DB Destination Error Output"
+                  isErrorOut="true">
+                  <outputColumns />
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load DimProduct.Paths[Source to Lookup]"
+              startId="Package\Load DimProduct\OLE DB Source Product.Outputs[OLE DB Source Output]"
+              endId="Package\Load DimProduct\Lookup Subcategory.Inputs[Lookup Input]" />
+            <path
+              refId="Package\Load DimProduct.Paths[Lookup to Derived]"
+              startId="Package\Load DimProduct\Lookup Subcategory.Outputs[Lookup Match Output]"
+              endId="Package\Load DimProduct\Derived Column Status.Inputs[Derived Column Input]" />
+            <path
+              refId="Package\Load DimProduct.Paths[Derived to Destination]"
+              startId="Package\Load DimProduct\Derived Column Status.Outputs[Derived Column Output]"
+              endId="Package\Load DimProduct\OLE DB Destination DimProduct.Inputs[OLE DB Destination Input]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+      DTS:refId="Package.EventHandlers[OnPostExecute]"
+      DTS:CreationName="OnPostExecute"
+      DTS:DTSID="{2613DBA7-686C-4101-BADA-34DC2EA40F6C}"
+      DTS:EventID="2"
+      DTS:EventName="OnPostExecute"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{8DBD5004-FAF3-4282-B01D-E9F873DD987E}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+          DTS:refId="Package.EventHandlers[OnPostExecute]\Call SnowConvert Logging Package"
+          DTS:CreationName="Microsoft.ExecutePackageTask"
+          DTS:Description="Execute Package Task"
+          DTS:DTSID="{944C9F00-F1E9-4551-A7AB-48F8CFD4F8F4}"
+          DTS:ExecutableType="Microsoft.ExecutePackageTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Call SnowConvert Logging Package"
+          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <ExecutePackageTask>
+              <UseProjectReference>True</UseProjectReference>
+              <PackageName>SnowConvertLoggingPackage.dtsx</PackageName>
+              <ParameterAssignment>
+                <ParameterName>CurrentExecutable</ParameterName>
+                <BindedVariableOrParameterName>System::SourceName</BindedVariableOrParameterName>
+              </ParameterAssignment>
+              <ParameterAssignment>
+                <ParameterName>CurrentExecutableId</ParameterName>
+                <BindedVariableOrParameterName>System::SourceID</BindedVariableOrParameterName>
+              </ParameterAssignment>
+              <ParameterAssignment>
+                <ParameterName>SnowConvertLogsDirectory</ParameterName>
+                <BindedVariableOrParameterName>User::SnowConvertLogsDirectory</BindedVariableOrParameterName>
+              </ParameterAssignment>
+              <ParameterAssignment>
+                <ParameterName>SourcePackageName</ParameterName>
+                <BindedVariableOrParameterName>System::PackageName</BindedVariableOrParameterName>
+              </ParameterAssignment>
+            </ExecutePackageTask>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+</DTS:Executable>

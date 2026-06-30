@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ControlFlowInstrumentation>
+  <TaskConfig TaskName="Load DimProduct" TaskRefId="Package\Load DimProduct" TaskGuid="{DFDE3DB8-A05A-47A2-86E4-8ECACBCE3993}">
+    <TableToMonitor Name="[DimProduct]" Schema="[dbo]" ConnectionManagerId="AdventureWorksDW" />
+  </TaskConfig>
+</ControlFlowInstrumentation>
