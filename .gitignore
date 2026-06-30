@@ -12,3 +12,6 @@ trail-pat-token-secret.txt
 # (also contains Snowflake account locators/usernames in logs — keep out)
 migration_workspace/
 .cortex/
+
+# Excluded from the public repo by request (kept locally)
+LINKEDIN_AND_VIDEO_PLAN.md
